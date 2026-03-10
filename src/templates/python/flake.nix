@@ -1,13 +1,8 @@
 {
-  description = "Simple Python devshell flake";
-
   inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
   outputs =
-    {
-      self,
-      nixpkgs,
-    }:
+    { nixpkgs, ... }:
     let
       supportedSystems = [
         "x86_64-linux"
