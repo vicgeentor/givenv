@@ -1,40 +1,31 @@
 {
-  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
   outputs =
-    { nixpkgs, ... }:
-    let
-      supportedSystems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-      forEachSupportedSystem =
-        f:
-        nixpkgs.lib.genAttrs supportedSystems (
-          system:
-          f {
-            pkgs = import nixpkgs { inherit system; };
-          }
-        );
-    in
-    {
-      devShells = forEachSupportedSystem (
-        { pkgs }:
-        {
-          default = pkgs.mkShell {
-            packages = with pkgs; [
-              (pkgs.haskellPackages.ghcWithPackages (
-                ps: with ps; [
-                  cabal-install
-                  haskell-language-server
-                  hlint
-                ]
-              ))
-            ];
-          };
-        }
-      );
-    };
+    inputs:
+    inputs.flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
+        pkg = pkgs.haskellPackages.developPackage { root = ./.; };
+      in
+      {
+        packages = rec {
+          hattier = pkg;
+          default = hattier;
+        };
+        devShells.default = pkgs.haskellPackages.shellFor {
+          packages = _: [ pkg ];
+          nativeBuildInputs = with pkgs; [
+            cabal-install
+            ghc
+            haskellPackages.cabal-fmt
+            haskell-language-server
+          ];
+        };
+      }
+    );
 }

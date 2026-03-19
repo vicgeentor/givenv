@@ -41,5 +41,31 @@ else
   cp "$template_dir"/"$template"/.gitignore .
 fi
 
+if [[ $input == "haskell" ]]; then
+  # Check if any .cabal file already exists
+  if ! ls ./*.cabal >/dev/null 2>&1; then
+    # Try to create a sensible name
+    if [ -n "$input" ] && [ -d "$template_dir/$input" ]; then
+      # Most common patterns: use directory name or look for project-name.cabal in template
+      cabal_template="$template_dir/$input/project.cabal"
+      if [ -f "$cabal_template" ]; then
+        # Try to guess project name from current directory
+        proj_name=$(basename "$(pwd)")
+        if [ -z "$proj_name" ] || [ "$proj_name" = "/" ]; then
+          proj_name="my-project"
+        fi
+
+        target_cabal="$proj_name.cabal"
+        cp "$cabal_template" "./$target_cabal"
+        echo "Created $target_cabal"
+      else
+        echo "Warning: project.cabal not found in template directory"
+      fi
+    fi
+  else
+    echo ".cabal file already found. Not making any changes to it"
+  fi
+fi
+
 chmod +w *
 chmod +w .*
