@@ -3,3 +3,4 @@ result
 dist-newstyle
 *.agdai
 **/MAlonzo/**
+**/_build
