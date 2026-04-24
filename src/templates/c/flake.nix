@@ -25,7 +25,7 @@
             # '';
             # installPhase = ''
             #   mkdir -p $out/bin
-            #   cp default_pname $out/bin/
+            #   cp CHANGE_ME $out/bin/
             # '';
           };
           devShells.default = pkgs.mkShell {
