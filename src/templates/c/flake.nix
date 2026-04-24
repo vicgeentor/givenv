@@ -31,6 +31,8 @@
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               gcc
+              gdb
+              gef
               clang
               clang-tools
             ];

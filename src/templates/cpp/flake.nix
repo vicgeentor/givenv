@@ -38,6 +38,7 @@
                   bear # run `bear -- make` to generate compile_commands.json for clangd to work
                   clang-tools
                   gdb
+                  gef
                   gnumake
                 ];
               };
