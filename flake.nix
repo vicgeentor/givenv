@@ -18,7 +18,7 @@
             givenv = pkgs.stdenv.mkDerivation {
               pname = "givenv";
               version = "0.1";
-              src = ./src;
+              src = ./.;
 
               dontConfigure = true;
               dontBuild = true;

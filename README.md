@@ -1,4 +1,4 @@
-# Some simple Nix devshell templates
+# givenv
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
@@ -9,17 +9,50 @@ then use these shells to develop your projects and manage your
 dependencies [the Nix way](https://github.com/the-nix-way)!
 
 These devshells are made for myself, so you should modify each
-flake.nix file for your own needs.
-
-This project is heavily inspired by and copied from
-[the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates).
+template to your own needs after running `givenv`.
 
 ## Requirements
 
-- A system with [Nix](https://nixos.org/) installed (with flakes
-  enabled)
+- [Nix](https://nixos.org/) with
+  [flakes](https://wiki.nixos.org/wiki/Flakes#Setup) enabled
 - (optional)
   [direnv](https://github.com/nix-community/nix-direnv)
+
+## Usage
+
+To copy a template to your current working directory, run
+
+```sh
+nix run github:vicgeentor/givenv -- <template>
+```
+
+or (if you install givenv on your system; see
+[Installation](#installation))
+
+```sh
+givenv <template>
+```
+
+where `<template>` is one of the directory names inside the
+[templates directory](./templates).
+
+This will copy all the template files (`flake.nix`,
+`flake.lock`, `.envrc`, `.gitignore`, etc.) to your current
+directory. You can then run
+
+```bash
+direnv allow
+```
+
+or
+
+```bash
+nix develop
+```
+
+to activate the development environment, depending on if you
+have [direnv](https://github.com/nix-community/nix-direnv)
+installed or not.
 
 ## Installation
 
@@ -58,29 +91,12 @@ Then rebuild your NixOS or home-manager system.
 > to learn how Nix flakes work and how they make your
 > development life easier.
 
-## Usage
+## Acknowledgement
 
-```bash
-givenv $template
-```
+This project is heavily inspired by
+[the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates).
 
-where `$template` is one of the directory names inside
-[src/templates](https://github.com/vicgeentor/givenv/tree/main/src/templates).
+## License
 
-This will copy `flake.nix`, `flake.lock`, `.envrc`, and
-`.gitignore` from the template directory that you chose to your
-current directory. You can then run
-
-```bash
-direnv allow
-```
-
-or
-
-```bash
-nix develop
-```
-
-to activate the development environment, depending on if you
-have [direnv](https://github.com/nix-community/nix-direnv)
-installed or not.
+givenv is licensed under the MIT license. see
+[LICENSE](./LICENSE) for more information.
