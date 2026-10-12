@@ -72,7 +72,7 @@ if [[ $input == "agda" ]]; then
   if ! ls ./*.agda-lib >/dev/null 2>&1; then
     # Try to create a sensible name
     if [ -n "$input" ] && [ -d "$template_dir/$input" ]; then
-      # Most common patterns: use directory name or look for project-name.cabal in template
+      # Most common patterns: use directory name or look for project-name.agda-lib in template
       agda_lib_template="$template_dir/$input/project.agda-lib"
       if [ -f "$agda_lib_template" ]; then
         # Try to guess project name from current directory
@@ -82,7 +82,7 @@ if [[ $input == "agda" ]]; then
         fi
 
         target_agda_lib="$proj_name.agda-lib"
-        cp "$agda_lib_template" "./$target_cabal"
+        cp "$agda_lib_template" "./$target_agda_lib"
         echo "Created $target_agda_lib"
       else
         echo "Warning: project.agda-lib not found in template directory"
