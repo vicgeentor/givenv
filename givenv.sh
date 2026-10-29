@@ -29,12 +29,6 @@ if [ -f ./flake.nix ]; then
 fi
 cp "$template_dir"/"$template"/flake.nix .
 
-if [ -f ./flake.lock ]; then
-  echo "flake.lock already found. Moving existing flake.lock to flake.lock.bak"
-  mv flake.lock flake.lock.bak
-fi
-cp "$template_dir"/"$template"/flake.lock .
-
 if [ -f ./.gitignore ]; then
   echo ".gitignore already found. Not making any changes to it"
 else

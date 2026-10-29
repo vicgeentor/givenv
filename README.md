@@ -36,9 +36,8 @@ givenv <template>
 where `<template>` is one of the directory names inside the
 [templates directory](./templates).
 
-This will copy all the template files (`flake.nix`,
-`flake.lock`, `.envrc`, `.gitignore`, etc.) to your current
-directory. You can then run
+This will copy all the template files (`flake.nix`, `.envrc`,
+`.gitignore`, etc.) to your current directory. You can then run
 
 ```bash
 direnv allow
